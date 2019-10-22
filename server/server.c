@@ -16,6 +16,7 @@
 #define UPLOAD_KEYWORD "UP"
 #define DOWNLOAD_KEYWORD "DL"
 #define EXIT_KEYWORD "end"
+#define LOCALHOST "127.0.0.1"
 
 #define SOCKET_SET_OPS_ERR "socket set options failed.\nexit\n"
 #define SOCKET_CREAT_ERR "server init failed.\nexit\n"
@@ -41,7 +42,7 @@ struct network_pair setupTCPSocket(int listenPort){
     }
     struct sockaddr_in* address = malloc(sizeof(struct sockaddr_in));
     address->sin_family = AF_INET;
-    address->sin_addr.s_addr = INADDR_ANY;
+    address->sin_addr.s_addr = inet_addr(LOCALHOST);
     address->sin_port = htons(listenPort);
     if(setsockopt(socketfd,SOL_SOCKET,SO_REUSEADDR,&optval,sizeof(optval))<0){
         print_stdout(SOCKET_SET_OPS_ERR);

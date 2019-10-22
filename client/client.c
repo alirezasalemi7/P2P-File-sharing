@@ -4,7 +4,6 @@
 #include<sys/time.h>
 #include<sys/select.h>
 #include<sys/signal.h>
-#include<arpa/inet.h>
 
 #include "../file/stdIO.c"
 #include "../file/fileIO.c"
@@ -47,6 +46,7 @@
 #define QUEUE_SIZE 5
 #define BROAD_CAST_INTERVAL 3
 #define ANSWER_KEYWORD "@ans"
+#define LOCALHOST "127.0.0.1"
 
 #define TIME_OUT_S 3
 #define HEARTBET_LENGTH 10
@@ -70,7 +70,7 @@ int isServerExist(int port){
     }
     struct sockaddr_in *addr = malloc(sizeof(struct sockaddr_in));
     addr->sin_family = AF_INET;
-    addr->sin_addr.s_addr = INADDR_ANY;
+    addr->sin_addr.s_addr = INADDR_BROADCAST;
     addr->sin_port = htons(port);
     struct timeval timeOut;
     timeOut.tv_usec = TIME_OUT_S*100000;
@@ -112,7 +112,7 @@ struct network_pair setTCPSocket(int port,int type){
     }
     struct sockaddr_in *addr = malloc(sizeof(struct sockaddr_in));
     addr->sin_family = AF_INET;
-    addr->sin_addr.s_addr = INADDR_ANY;
+    addr->sin_addr.s_addr = inet_addr(LOCALHOST);
     addr->sin_port = htons(port);
     if(connect(sockfd,(struct sockaddr*)addr,sizeof(*addr))<0){
         if(type==SERVER){
@@ -437,7 +437,7 @@ struct network_pair setupTCPServerSocket(int listenPort){
     }
     struct sockaddr_in* address = malloc(sizeof(struct sockaddr_in));
     address->sin_family = AF_INET;
-    address->sin_addr.s_addr = INADDR_ANY;
+    address->sin_addr.s_addr = inet_addr(LOCALHOST);
     address->sin_port = htons(listenPort);
     if(setsockopt(socketfd,SOL_SOCKET,SO_REUSEPORT,&optval,sizeof(optval))<0){
         print_stdout(SOCKET_SET_OPS_ERR);

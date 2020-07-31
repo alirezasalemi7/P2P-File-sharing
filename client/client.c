@@ -5,9 +5,9 @@
 #include<sys/select.h>
 #include<sys/signal.h>
 
-#include "../file/stdIO.c"
-#include "../file/fileIO.c"
-#include "../utils/utils.c"
+#include "../file/stdIO.h"
+#include "../file/fileIO.h"
+#include "../utils/utils.h"
 
 #define SOCKET_SET_OPS_ERR "socket set options failed.\nexit\n"
 #define SOCKET_CREAT_ERR "server init failed.\nexit\n"
@@ -90,7 +90,7 @@ int isServerExist(int port){
     if(bind(sockfd,(struct sockaddr*)addr,sizeof(*addr))<0){
         print_stdout(SOCK_BIND_ERR);
         _exit(EXIT_FAILURE);
-    }
+    
     char* heartBeat = (char*) malloc(HEARTBET_LENGTH);
     heartBeat[0] = '\0';
     int size = sizeof(*addr);

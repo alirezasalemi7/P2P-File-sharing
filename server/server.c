@@ -6,9 +6,9 @@
 #include <errno.h>
 #include <arpa/inet.h>
 
-#include "../file/stdIO.c"
-#include "../file/fileIO.c"
-#include "../utils/utils.c"
+#include "../file/stdIO.h"
+#include "../file/fileIO.h"
+#include "../utils/utils.h"
 
 #define QUEUE_SIZE 10
 #define NO_FILE "NOFILE "

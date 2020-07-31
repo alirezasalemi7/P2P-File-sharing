@@ -7,7 +7,7 @@
 #include<unistd.h>
 #include<stdlib.h>
 #include<sys/stat.h>
-#include "stdIO.c"
+#include "stdIO.h"
 
 
 #include<stdio.h>
